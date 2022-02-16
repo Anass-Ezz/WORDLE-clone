@@ -29,7 +29,7 @@ let random = true
 
 var keyboard_element = document.querySelector('#keyboard')
 var tile_container = document.querySelector("#tile-container")
-var loading_element = document.querySelector("#loading_page")
+var loading_element = document.getElementById("loading_page")
 var form_1v1 = document.getElementById("word_1v1_form")
 
 var input_focus
@@ -121,13 +121,13 @@ async function isWord(wordle_word){
 
 
 async function generateWord(){
-    loading_element.hidden = false
+    loading_element.style.display = 'flex'
     var is_5_len = false
     while(!is_5_len){
         await axios.get("https://random-word-api.herokuapp.com/word?number=1")
         .then(res=>{
             let word = res.data[0]
-                // console.log(word)
+                console.log(word)
                 if (word.length == 5){
                     isWord(word).then(is_word=>{
                         if (is_word){
@@ -350,12 +350,12 @@ function game(){
     })
 }
 
-// if(random){
-//     generateWord().then(()=>{
-//         loading_element.hidden = true
-//         game()
-//     })
-// }
-// else{
+if(random){
+    generateWord().then(()=>{
+        loading_element.style.display = 'none'
+        game()
+    })
+}
+else{
     game()
-// }
+}
