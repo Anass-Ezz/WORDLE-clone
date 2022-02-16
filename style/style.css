@@ -17,7 +17,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#tile-container {
+#game-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#game-container #tile-container {
   color: white;
   width: 322px;
   display: -webkit-box;
@@ -31,7 +41,7 @@ body {
   gap: 4px;
 }
 
-#tile-container .guess-row {
+#game-container #tile-container .guess-row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -44,9 +54,9 @@ body {
   gap: 4px;
 }
 
-#tile-container .guess-row .tile {
-  width: 56px;
-  height: 56px;
+#game-container #tile-container .guess-row .tile {
+  width: 50px;
+  height: 50px;
   border: solid 2px var(--darkGray);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -57,36 +67,147 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 30px;
+  font-size: 20px;
 }
 
-#tile-container .guess-row div[letter] {
+#game-container #tile-container .guess-row div[letter] {
   -webkit-animation: pop .05s ease-in;
           animation: pop .05s ease-in;
   border: solid 2px var(--gray);
 }
 
-#tile-container .guess-row div[present] {
+#game-container #tile-container .guess-row div[present] {
   -webkit-animation: popx2 .05s ease-in;
           animation: popx2 .05s ease-in;
   background-color: var(--darkendYellow);
 }
 
-#tile-container .guess-row div[absent] {
+#game-container #tile-container .guess-row div[absent] {
   -webkit-animation: popx2 .05s ease-in;
           animation: popx2 .05s ease-in;
   background-color: var(--darkGray);
 }
 
-#tile-container .guess-row div[correct] {
+#game-container #tile-container .guess-row div[correct] {
   -webkit-animation: popx2 .05s ease-in;
           animation: popx2 .05s ease-in;
   background-color: var(--green);
 }
 
+#wrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+}
+
+#settings {
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  /* Hide default HTML checkbox */
+  /* The slider */
+  /* Rounded sliders */
+}
+
+#settings .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+#settings button {
+  border: none;
+  background-color: transparent;
+  color: #86888a;
+  font-size: larger;
+}
+
+#settings button:hover {
+  color: white;
+}
+
+#settings input[type=text] {
+  background-color: transparent;
+  color: white;
+  border: none;
+  border: solid grey 2px;
+  height: 20px;
+}
+
+#settings .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+#settings .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+#settings .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+#settings input:checked + .slider {
+  background-color: #2196F3;
+}
+
+#settings input:focus + .slider {
+  -webkit-box-shadow: 0 0 1px #2196F3;
+          box-shadow: 0 0 1px #2196F3;
+}
+
+#settings input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+#settings .slider.round {
+  border-radius: 34px;
+}
+
+#settings .slider.round:before {
+  border-radius: 50%;
+}
+
 div[invalid] {
   -webkit-animation: shake .6s ease-in;
           animation: shake .6s ease-in;
+}
+
+#loading_page {
+  color: white;
+  font-size: 40px;
+  text-align: center;
+  position: relative;
+  margin-top: 20%;
 }
 
 @-webkit-keyframes shake {

@@ -9,14 +9,25 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <h1 style="text-align: center; color:white; margin:20px 0px ; ">WORDLE CLONE</h1>
-    <h1 style="text-align: center; color:white; margin:20px 0px ; ">HAPPY</h1>
-    <div id="tile-container">
-       
+    <div id="settings">
+        <h1>RANDOM</h1>
+        <label class="switch">
+            <input type="checkbox" onchange="handleTuggleSwitch(this)">
+            <span class="slider round"></span>
+        </label>
+        <h1>1V1</h1>
+        <div id="word_1v1_form" hidden>
+            <input onfocusout="handleInputFocus(false)" onfocus="handleInputFocus(true)" minlength="5" placeholder="1v1 WORD"  type="text" maxlength="5">
+            <button type="button" onclick="handle1v1Submit()"  >GO</button>
+        </div>
     </div>
-
-
-
+    <h1 style="text-align: center; color:white; margin:20px 0px ; ">WORDLE CLONE</h1>
+    <div id="loading_page" hidden>loading...</div>
+    <div id="game-container">
+        <div id="tile-container"></div>
+        <div id="keyboard"></div>
+    </div>
+        
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 
