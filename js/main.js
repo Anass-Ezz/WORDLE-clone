@@ -16,6 +16,7 @@ var guesses = [
 ]
 
 letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+keys = ["Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L", "ENTER", "Z","X","C","V","B","N","M", "⇚"]
 
 let main_word = ''
 let random_word = ''
@@ -26,9 +27,9 @@ let win = false
 
 let random = true
 
+var keyboard_element = document.querySelector('#keyboard')
 var tile_container = document.querySelector("#tile-container")
 var loading_element = document.querySelector("#loading_page")
-var game_element = document.querySelector("#game-container")
 var form_1v1 = document.getElementById("word_1v1_form")
 
 var input_focus
@@ -97,18 +98,23 @@ let current_row = 0
 
 let current_tile = 0
 
+let is_word_done = true
+
 async function isWord(wordle_word){
     let is_word = false
+    is_word_done = false
     try{
         await axios.get("https://api.dictionaryapi.dev/api/v2/entries/en/"+wordle_word).then(res=>{
             is_word = true
+            is_word_done = true
         }).catch(err=>{
             is_word = false
+            is_word_done = true
         })
         console.log("isWord done")
         return is_word
     }
-    catch{
+    catch(err){
         return false
     }
 }
@@ -116,7 +122,6 @@ async function isWord(wordle_word){
 
 async function generateWord(){
     loading_element.hidden = false
-    game_element.hidden = true
     var is_5_len = false
     while(!is_5_len){
         await axios.get("https://random-word-api.herokuapp.com/word?number=1")
@@ -226,6 +231,33 @@ function game(){
         })
     })
     
+
+    var keyboard_row_1 = document.createElement("div")
+    var keyboard_row_2 = document.createElement("div")
+    var keyboard_row_3 = document.createElement("div")
+    keys.forEach((key, index) =>{
+        var button_element = document.createElement("button")
+        button_element.textContent = key
+        button_element.setAttribute("id", key)
+        button_element.classList.add("keyboard-key")
+        button_element.addEventListener("click", () => {
+            (is_word_done) ? handleTyping(key) : null
+            
+        })
+        if (index <= 9){
+            keyboard_row_1.append(button_element)
+        }
+        else if (index > 9 && index <= 18){
+            keyboard_row_2.append(button_element)
+        }
+        else if (index > 18){
+            keyboard_row_3.append(button_element)
+        }
+    })
+    keyboard_element.append(keyboard_row_1)
+    keyboard_element.append(keyboard_row_2)
+    keyboard_element.append(keyboard_row_3)
+
     function handleTyping(key){
         key = key.toUpperCase()
         if (current_tile <= 4 && isLetter(key) && !getTileElement(current_row, current_tile).textContent){
@@ -235,7 +267,7 @@ function game(){
             guesses[current_row][current_tile] = key
             current_tile ++
         }
-        else if(key == "BACKSPACE" && current_tile > 0 ){
+        else if((key == "BACKSPACE" || key == '⇚') && current_tile > 0 ){
             if (current_tile == 4 && getTileElement(current_row, current_tile).textContent){
                 getTileElement(current_row, current_tile).textContent = ''
                 getTileElement(current_row, current_tile).removeAttribute("letter")
@@ -294,6 +326,8 @@ function game(){
                         }
                         console.log("game over: ", game_over)
                         console.log("is wining: ", win)
+                        console.log(current_row)
+
                     }
                     else{
                         getRowElement(current_row).setAttribute('invalid', '')
@@ -309,18 +343,19 @@ function game(){
     
     }
     document.addEventListener("keydown", (e)=>{
-        if(!game_over && !input_focus){
+        if(!game_over && !input_focus && is_word_done){
+            console.log('enter key pressed')
             handleTyping(e.key)
         }
     })
 }
 
-if(random){
-    generateWord().then(()=>{
-        loading_element.hidden = true
-        game()
-    })
-}
-else{
+// if(random){
+//     generateWord().then(()=>{
+//         loading_element.hidden = true
+//         game()
+//     })
+// }
+// else{
     game()
-}
+// }

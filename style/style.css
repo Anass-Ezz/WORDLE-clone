@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --green: #6aaa64;
   --darkendGreen: #538d4e;
@@ -18,13 +19,38 @@ body {
 }
 
 #game-container {
+  height: 98vh;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#game-container #keyboard {
+  margin-top: 10px;
+  text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+
+#game-container .keyboard-key {
+  height: 58px;
+  width: 40px;
+  background-color: var(--lightGray);
+  border-radius: 4px;
+  border: none;
+  margin: 0px 3px;
+}
+
+#game-container #ENTER, #game-container #⇚ {
+  width: 65px;
 }
 
 #game-container #tile-container {
@@ -55,8 +81,8 @@ body {
 }
 
 #game-container #tile-container .guess-row .tile {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border: solid 2px var(--darkGray);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -106,6 +132,8 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-flow: wrap;
+      flex-flow: wrap;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -122,8 +150,8 @@ body {
 #settings .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 45px;
+  height: 24px;
 }
 
 #settings button {
@@ -166,11 +194,11 @@ body {
 #settings .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
+  height: 24px;
+  width: 24px;
+  left: 0px;
+  bottom: 0px;
+  background-color: grey;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -195,6 +223,31 @@ body {
 
 #settings .slider.round:before {
   border-radius: 50%;
+}
+
+#word_1v1_form {
+  text-align: center;
+  margin: 5px 0px;
+}
+
+#word_1v1_form button {
+  border: none;
+  background-color: transparent;
+  color: #86888a;
+  font-size: larger;
+}
+
+#word_1v1_form button:hover {
+  color: white;
+}
+
+#word_1v1_form input[type=text] {
+  background-color: transparent;
+  color: white;
+  width: 60px;
+  border: none;
+  border: solid grey 2px;
+  height: 20px;
 }
 
 div[invalid] {
@@ -285,6 +338,32 @@ div[invalid] {
   50% {
     -webkit-transform: scale(1.3);
             transform: scale(1.3);
+  }
+}
+
+@media screen and (max-width: 491px) {
+  #keyboard {
+    margin-top: 10px;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 10px;
+  }
+  #keyboard .keyboard-key {
+    height: 48px;
+    width: 27px;
+    background-color: var(--lightGray);
+    border-radius: 4px;
+    border: none;
+    margin: 0px 3px;
+  }
+  #keyboard #ENTER, #keyboard #⇚ {
+    width: 55px;
   }
 }
 /*# sourceMappingURL=style.css.map */
