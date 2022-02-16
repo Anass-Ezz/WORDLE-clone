@@ -241,7 +241,9 @@ function game(){
         button_element.setAttribute("id", key)
         button_element.classList.add("keyboard-key")
         button_element.addEventListener("click", () => {
-            (is_word_done) ? handleTyping(key) : null
+            if(!game_over && !input_focus && is_word_done){
+                handleTyping(key)
+            }
             
         })
         if (index <= 9){
